@@ -1,0 +1,22 @@
+{
+  "dependencies": {
+    "jquery": "^3.6.0",
+    "jsdom": "^19.0.0",
+    "typescript": "^4.7.3",
+    "web3": "^1.7.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  },
+  "name": "node_",
+  "description": "",
+  "version": "1.0.0",
+  "main": "./http/http_demo.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon http/http_statusCodes.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

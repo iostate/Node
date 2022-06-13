@@ -1,0 +1,154 @@
+{
+    "cells": [
+        {
+            "language": "typescript",
+            "source": [
+                "const dangero = {\n  a: 10,\n  b: 20\n};\nconsole.log(dangero);\nconst dangero2 = {\n  ...dangero,\n  a: 30\n};\n\nconsole.log(dangero);"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "{ a: 10, b: 20 }",
+                                "{ a: 10, b: 20 }",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### Assign multiple Objects as one Object"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "const objj1 = {a: 10};\nconst objj2 = {b: 20};\nconst objj3 = {c: 30};\n\n// ES2018\nconst combined = {...objj1, ...objj2, ...objj3};\nconsole.log(combined)\n\n// ES2015 \nconsole.log(Object.assign({}, objj1, objj2, objj3));"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "{ a: 10, b: 20, c: 30 }",
+                                "{ a: 10, b: 20, c: 30 }",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Note, however, that spread properties do not always produce the same result as Object.assign(). Consider the following code:"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "Object.defineProperty(Object.prototype, 'a', {\n  set(value) {\n    console.log('set called!');\n  }\n});\n\nconst obj = {a: 10};\n\nconsole.log({...obj});    \n// → {a: 10}\n\nconsole.log(Object.assign({}, obj));    \n// → set called!\n// → {}"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.error",
+                            "value": {
+                                "name": "TypeError",
+                                "message": "Cannot redefine property: a",
+                                "stack": "    at Function.defineProperty (<anonymous>)\n    at <Cell 5> [1, 0]\n    at <Cell 5> [11, 46]\n    at Script.runInContext (node:vm:139:12)\n    at Script.runInNewContext (node:vm:144:17)\n    at Object.runInNewContext (node:vm:298:38)\n    at C (/Users/qmtruong92/.vscode/extensions/donjayamanne.typescript-notebook-2.0.6/out/extension/server/index.js:2:113345)\n    at t.execCode (/Users/qmtruong92/.vscode/extensions/donjayamanne.typescript-notebook-2.0.6/out/extension/server/index.js:2:114312)\n    at k.<anonymous> (/Users/qmtruong92/.vscode/extensions/donjayamanne.typescript-notebook-2.0.6/out/extension/server/index.js:2:142156)\n    at k.emit (node:events:527:28)"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Declare a Type Alias!"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "type Person= {\n  name: string;\n  age: Number;\n};\n\nlet unaPersona: Person = {\n  name: \"max\",\n  age: 18,\n};\n\nlet gente: Person[] = [unaPersona];\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Use Objects From Exposed Module Wrapper Function\nThe Exposed Module Wrapper Function exposes a few objects that we can use to construct paths, that can then be used to create directories, move files, and the possibilities are endless. "
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "const path = require(\"path\");\n\n// working on this\n\n// Get this filename\nconsole.log(path.basename(__filename));\n// Get path of directory where this file lives\nconsole.log(path.dirname(__filename));\n// Get the extension (file type) of this file\nconsole.log(path.extname(__filename));\n\n// Parses the path and returns an object\n// {root: ', dir: '', base: '', ext:'', name: ''};\nconsole.log(path.parse(__filename));\n// console.log(path.parse(__filename).dir);\n// console.log(path.parse(__filename).root);\n// console.log(path.parse(__filename).base);\n// console.log(path.parse(__filename).name);\n// console.log(path.parse(__filename).ext);\n\nconsole.log(path.join(__dirname, \"test\", \"hello.html\"));\n"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "__exec.js",
+                                "/Users/qmtruong92/code/typescript/node_",
+                                ".js",
+                                "{",
+                                "  root: '/',",
+                                "  dir: '/Users/qmtruong92/code/typescript/node_',",
+                                "  base: '__exec.js',",
+                                "  ext: '.js',",
+                                "  name: '__exec'",
+                                "}",
+                                "/Users/qmtruong92/code/typescript/node_",
+                                "/",
+                                "__exec.js",
+                                "__exec",
+                                ".js",
+                                "/Users/qmtruong92/code/typescript/node_/test/hello.html",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "# Node Internal Packages (fs, path, os, url)\nnode::Events https://nodejs.org/api/events.html#events"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## NODE::HTTP Package "
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "const http = require(\"http\");\n\n// Create server object\nhttp\n  .createServer((req, res) => {\n    // Write response\n    res.write(\"Hello\");\n    res.end();\n  })\n  .listen(5000, () => console.log(\"Server running\"));\n"
+            ],
+            "outputs": []
+        }
+    ]
+}
