@@ -10,12 +10,12 @@
  *
  */
 
-const http = require("http");
+const http = require('http');
 
 const todos = [
-  { id: 1, text: "Todo One" },
-  { id: 2, text: "Todo Two" },
-  { id: 3, text: "Todo Three" },
+  { id: 1, text: 'Todo One' },
+  { id: 2, text: 'Todo Two' },
+  { id: 3, text: 'Todo Three' },
 ];
 
 const PORT = process.env.PORT || 5000; // PORT FOR SERVER
@@ -29,11 +29,11 @@ const nodeServer = http.createServer((req, res) => {
 
   // Request incoming
   req
-    .on("data", (chunk) => {
+    .on('data', (chunk) => {
       body.push(chunk);
       console.log(`chunk = ${chunk}`);
     })
-    .on("end", () => {
+    .on('end', () => {
       body = Buffer.concat(body).toString();
       // console.log(body);
 
@@ -43,16 +43,31 @@ const nodeServer = http.createServer((req, res) => {
       const response = { success: false, data: null };
 
       // If success, change response and status code
-      if (method === "GET" && (url === "/todos" || url === "/todos/")) {
+      if (method === 'GET' && (url === '/todos' || url === '/todos/')) {
         status = 200;
         response.success = true;
         response.data = todos;
+      } else if (method === 'POST' && url === '/todos') {
+        const { id, text } = JSON.parse(body);
+        console.log('Entered POST /todos');
+
+        // Validate whether the Todo Object has both id & text
+        // Can create helper functions to help verify this.
+        if (!id || !text) {
+          status = 400;
+          response.error = 'Please add id and text';
+        } else {
+          todos.push({ id, text });
+          status = 201; // Success but created something
+          response.success = true;
+          response.data = todos;
+        }
       }
 
       // Return the proper HTTP Headers, success or failure?
       res.writeHead(status, {
-        "Content-Type": "applicaiton/json",
-        "X-Powered-By": "Node.js",
+        'Content-Type': 'applicaiton/json',
+        'X-Powered-By': 'Node.js',
       });
 
       res.end(JSON.stringify(response));
